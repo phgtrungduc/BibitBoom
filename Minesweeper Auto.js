@@ -2,8 +2,8 @@
 // @name         Minesweeper Auto
 // @namespace    http://tampermonkey.net/
 // @version      1.3
-// @description  Đã sợ thì đừng dùng, đã dùng thì đừng sợ
-// @author       Cao Bang
+// @description  AutoClick BibitBoom
+// @author       PTDUc
 // @match        https://bybitcoinsweeper.com/*
 // @grant        none
 // ==/UserScript==
