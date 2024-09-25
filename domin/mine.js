@@ -45,10 +45,10 @@ class ByBit {
     }
 
     async wait(seconds) {
+        const timestamp = new Date().toLocaleTimeString();
+        readline.cursorTo(process.stdout, 0);
+        process.stdout.write(`[${timestamp}] [*] Chờ ${seconds} giây để tiếp tục...`);
         for (let i = seconds; i > 0; i--) {
-            const timestamp = new Date().toLocaleTimeString();
-            readline.cursorTo(process.stdout, 0);
-            process.stdout.write(`[${timestamp}] [*] Chờ ${i} giây để tiếp tục...`);
             await new Promise(resolve => setTimeout(resolve, 1000));
         }
         readline.cursorTo(process.stdout, 0);
@@ -58,14 +58,11 @@ class ByBit {
     async login(userData) {
         const url = "https://api.bybitcoinsweeper.com/api/auth/login";
         const payload = {
-            firstName: userData.first_name,
-            lastName: userData.last_name || "",
-            telegramId: userData.id.toString(),
-            userName: userData.username
+            initData : userData[0]
         };
 
         try {
-            const response = await axios.post(url, payload, { headers: this.headers });
+            const response = await axios.post(url, payload, { headers: {...this.headers, "tl-init-data": userData[0]}  });
             if (response.status === 201) {
                 this.headers['Authorization'] = `Bearer ${response.data.accessToken}`;
                 return { 
@@ -119,7 +116,7 @@ class ByBit {
 
     async main() {
         const dataFile = path.join(__dirname, 'data.txt');
-        const data = 'query_id=AAFSjfg7AwAAAFKN-Du6z1PB&user=%7B%22id%22%3A7448595794%2C%22first_name%22%3A%22Light%22%2C%22last_name%22%3A%22Fury%20%F0%9F%8C%B1SEED%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1727186210&hash=aa2f8bdbf7ca0f0a9a0e80f37ff56e83ef0c0090a8b498e348badd64d7a899fe'
+        const data = 'query_id=AAFSjfg7AwAAAFKN-DvkGG34&user=%7B%22id%22%3A7448595794%2C%22first_name%22%3A%22Light%22%2C%22last_name%22%3A%22Fury%20%F0%9F%8C%B1SEED%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1727256205&hash=0395066518fd38db97c08597d8bc27d72b4e53446b6d6362739fa64dc05d11a0'
             .replace(/\r/g, '')
             .split('\n')
             .filter(Boolean);
@@ -132,7 +129,7 @@ class ByBit {
                 console.log(`========== Tài khoản ${i + 1} | ${userData.first_name.green} ==========`);
                 
                 this.log(`Đang đăng nhập tài khoản ${userData.id}...`, 'info');
-                const loginResult = await this.login(userData);
+                const loginResult = await this.login(data);
                 if (loginResult.success) {
                     this.log('Đăng nhập thành công!', 'success');
                     const gameResult = await this.score();
