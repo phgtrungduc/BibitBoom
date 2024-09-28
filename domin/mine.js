@@ -116,7 +116,7 @@ class ByBit {
 
     async main() {
         const dataFile = path.join(__dirname, 'data.txt');
-        const data = 'query_id=AAFSjfg7AwAAAFKN-DvkGG34&user=%7B%22id%22%3A7448595794%2C%22first_name%22%3A%22Light%22%2C%22last_name%22%3A%22Fury%20%F0%9F%8C%B1SEED%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1727256205&hash=0395066518fd38db97c08597d8bc27d72b4e53446b6d6362739fa64dc05d11a0'
+        const data = 'query_id=AAFSjfg7AwAAAFKN-DsNvwJ9&user=%7B%22id%22%3A7448595794%2C%22first_name%22%3A%22Light%22%2C%22last_name%22%3A%22Fury%20%F0%9F%8C%B1SEED%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D&auth_date=1727434121&hash=d504ed072a2b683ec6f224dfd9d82ede182b542c612391eb18dfcca275d57197'
             .replace(/\r/g, '')
             .split('\n')
             .filter(Boolean);
